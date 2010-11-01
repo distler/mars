@@ -19,17 +19,17 @@ module Planet
       source = source.read if source.respond_to? :read
 
       begin
-        case @@parser
-        when :expat
-          # fast, compliant, but not always installed
-          doc = XmlParser.expat source
-        when :libxml2
-          # also fast, compliant, but not always installed
-          doc = XmlParser.libxml2 source
-        else
+#        case @@parser
+#        when :expat
+#          # fast, compliant, but not always installed
+#          doc = XmlParser.expat source
+#        when :libxml2
+#          # also fast, compliant, but not always installed
+#          doc = XmlParser.libxml2 source
+#        else
           # fairly fast, fairly compliant, always available
           doc = REXML::Document.new source
-        end
+#        end
         bozo = false
       rescue Exception => e
         # If everything is being bozo'd, enable this to see why.
@@ -154,11 +154,15 @@ module Planet
     end
 
     def XmlParser.libxml2 source
-      parser = XML::SaxParser.new
+      if XML::Parser::VERSION >= '0.9.9'
+        parser = XML::SaxParser.string(source)
+      else
+        parser = XML::SaxParser.new
+        parser.string = source
+      end
 
       doc = REXML::Document.new
 
-      parser.string = source
       parser.callbacks = XmlParser::Callbacks.new(doc)
       parser.parse
 

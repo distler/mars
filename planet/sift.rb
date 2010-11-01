@@ -131,7 +131,7 @@ module Planet
       alist = ACCEPTABLE_ATTRIBUTES
     elsif node.namespace == 'http://www.w3.org/2000/svg'
       elist = SVG_ELEMENTS
-      alist = SVG_ATTRIBUTES
+      alist = SVG_ATTRIBUTES + ['xmlns:svg']
     elsif node.namespace == 'http://www.w3.org/1998/Math/MathML'
       elist = MATHML_ELEMENTS
       alist = MATHML_ATTRIBUTES
