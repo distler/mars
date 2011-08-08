@@ -1,5 +1,6 @@
 require 'rexml/document'
 require 'html5/liberalxmlparser'
+require 'planet/instiki_stringsupport'
 
 module Planet
   module XmlParser
@@ -16,7 +17,7 @@ module Planet
     end
 
     def XmlParser.parse source
-      source = source.read if source.respond_to? :read
+      source = source.read.purify.to_utf8 if source.respond_to? :read
 
       begin
 #        case @@parser
