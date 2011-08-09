@@ -1,13 +1,20 @@
+require 'rubygems'
 require 'nokogiri'
+require 'planet/instiki_stringsupport'
 
 module Planet
   module XmlParser
-    def self.parse source, encoding='utf-8', uri=nil
-      Nokogiri::XML(source, uri, encoding)
+    def self.parse(source, encoding='utf-8', uri=nil)
+      if source && encoding == 'utf-8'
+        s = source.purify.to_utf8
+      else
+        s = source #hope for the best
+      end
+      Nokogiri::XML(s, uri, encoding)
     end
 
     def self.fragment source
-      Nokogiri::HTML.fragment(source)
+      Nokogiri::HTML.fragment(source.purify.to_utf8)
     end
   end
 
@@ -23,6 +30,10 @@ module Planet
         else
           base.value
         end
+      end
+
+      def text=(text)
+        content=text
       end
     end
   end

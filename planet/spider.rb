@@ -66,24 +66,20 @@ module Planet
 
         case name
           when 'title_type'
-            feed.each_element('//entry/title') do |title|
-              title.add_attribute('type') unless title.attributes['type']
-              title.attributes['type'] = type
+            feed.xpath('//entry/title').each do |title|
+              title.set_attribute('type', type) unless title.attributes['type']
             end
           when 'summary_type'
-            feed.each_element('//entry/summary') do |summary|
-              summary.add_attribute('type') unless summary.attributes['type']
-              summary.attributes['type'] = type
+            feed.xpath('//entry/summary').each do |summary|
+              summary.set_attribute('type', type) unless summary.attributes['type']
             end
           when 'content_type'
-            feed.each_element('//entry/content') do |content|
-              content.add_attribute('type') unless content.attributes['type']
-              content.attributes['type'] = type
+            feed.xpath('//entry/content').each do |content|
+              content.set_attribute('type', type) unless content.attributes['type']
             end
           when 'name_type'
-            feed.each_element('//entry/author/name') do |auth_name|
-              auth_name.add_attribute('type') unless auth_name.attributes['type']
-              auth_name.attributes['type'] = type
+            feed.xpath('//entry/author/name').each do |auth_name|
+              auth_name.set_attribute('type', type) unless auth_name.attributes['type']
             end
           end
         end
