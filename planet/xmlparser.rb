@@ -6,11 +6,11 @@ module Planet
   module XmlParser
     def self.parse(source, encoding='utf-8', uri=nil)
       if source && encoding == 'utf-8'
-        s = source.purify.to_utf8
+        s = (source.is_a?(File) ? source.readlines.join : source).purify.to_utf8
       else
         s = source #hope for the best
       end
-      Nokogiri::XML(s, uri, encoding)
+      Nokogiri::XML.parse(s, uri, encoding)
     end
 
     def self.fragment source

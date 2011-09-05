@@ -45,7 +45,7 @@ module Planet::Sanitizer
       frame height linethickness lspace mathbackground mathcolor mathvariant
       maxsize minsize notation open other rowalign
       rowlines rowspacing rowspan rspace scriptlevel selection separator
-      separators stretchy width xlink:href xlink:show xlink:type xmlns
+      separators stretchy voffset width xlink:href xlink:show xlink:type xmlns
       xmlns:xlink]
 
   svg_attributes = Set.new %w[accent-height accumulate additive alphabetic

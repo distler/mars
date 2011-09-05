@@ -81,7 +81,8 @@ module Planet
       source = feed.document.create_element('planet:source') unless source
       Planet.source(sub, source) if source.elements.empty?
 
-      feed.root.add_child source.root
+      r = source.is_a?(Nokogiri::XML::Document) ? source.root : source
+      feed.root.add_child r
     end
 
     # apply templates
